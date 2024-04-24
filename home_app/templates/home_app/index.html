@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>نوت پد چندزبانه</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+<div class="toolbar">
+  <select id="fontSelector" onchange="changeFont(this.value)">
+    <option value="Arial">Arial</option>
+    <option value="Verdana">Verdana</option>
+    <option value="Tahoma">Tahoma</option>
+    <!-- اضافه کردن فونت‌های دیگر -->
+  </select>
+  <select id="colorSelector" onchange="changeColor(this.value)">
+    <option value="black">مشکی</option>
+    <option value="red">قرمز</option>
+    <option value="blue">آبی</option>
+    <!-- اضافه کردن رنگ‌های دیگر -->
+  </select>
+  <select id="languageSelector" onchange="translateText(this.value)">
+    <option value="fa">فارسی</option>
+    <option value="en">انگلیسی</option>
+    <option value="fr">فرانسوی</option>
+  </select>
+  <button onclick="saveText()">ذخیره</button>
+</div>
+<div class="notepad-container">
+  <form action="{% url 'home:home' %}" method="post">
+  {% csrf_token %}
+    <input name="words" class="notepad" placeholder="enter the sentences"></input>
+    <button type="submit" onclick="checkSpelling()" class="spell-btn">بررسی املا</button>
+    <div id="spellCheck" style="color: red" class="spell-check">{{ words }}</div>
+  </form>
+</div>
+<script src="{% static 'script.js' %}"></script>
+</body>
+</html>
